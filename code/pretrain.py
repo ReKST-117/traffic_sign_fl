@@ -41,17 +41,32 @@ labels = to_categorical(labels, num_classes=len(class_list))
 X_train, X_val, Y_train, Y_val = train_test_split(images, labels, test_size=0.2, random_state=42)
 
 # === 4. Build OtherNet feature extractor (without final output layer) ===
-feature_extractor = Sequential([
-    Conv2D(60, (5,5), activation='relu', input_shape=(32,32,1)),
-    Conv2D(60, (5,5), activation='relu'),
-    MaxPooling2D(2,2),
-    Conv2D(30, (3,3), activation='relu'),
-    Conv2D(30, (3,3), activation='relu'),
-    MaxPooling2D(2,2),
-    Flatten(),
-    Dense(500, activation='relu'),
-    Dropout(0.5)
-])
+feature_extractor = tf.keras.models.Sequential([
+    tf.keras.layers.Conv2D(32, (3,3), activation=None, input_shape=(32,32,1)),
+    tf.keras.layers.ReLU(),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Conv2D(32, (3,3), activation=None),
+    tf.keras.layers.ReLU(),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPool2D(2,2),
+    tf.keras.layers.Dropout(0.5),
+    
+    tf.keras.layers.Conv2D(64, (3,3), activation=None),
+    tf.keras.layers.ReLU(),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Conv2D(64, (3,3), activation=None),
+    tf.keras.layers.ReLU(),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.MaxPool2D(2,2),
+    tf.keras.layers.Dropout(0.5),
+    
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(512, activation=None),
+    tf.keras.layers.ReLU(),
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dense(len(class_list), activation='softmax')
+    ])
 
 # === 5. Add temporary output layer for training ===
 output = Dense(len(class_list), activation='softmax')(feature_extractor.output)
@@ -68,6 +83,6 @@ training_model.fit(X_train, Y_train,
                    batch_size=32)
 
 # === 7. Save the feature extractor only (without output layer) ===
-feature_extractor.save("/home/nvidia/git/tsfl/premd.h5")
+feature_extractor.save("/home/nvidia/git/tsfl/pre_vgg.h5")
 
-print("✅ Feature extractor model saved to /home/nvidia/git/tsfl/feature_extractor_only.h5")
+print("✅ Pretrained model saved to /home/nvidia/git/tsfl/pre_vgg.h5")
