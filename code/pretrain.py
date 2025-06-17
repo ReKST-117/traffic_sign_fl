@@ -9,10 +9,13 @@ from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
 
 # === 1. Set dataset path ===
-data_path = "/home/nvidia/git/tsfl/dset"
+data_path = "/home/nvidia/spd/pre"
 
 # === 2. Load images and labels ===
-images, labels = []
+images = []
+labels = []
+
+
 class_list = sorted(os.listdir(data_path))  # Ensure consistent class order
 
 print("Detected classes:")
@@ -65,6 +68,6 @@ training_model.fit(X_train, Y_train,
                    batch_size=32)
 
 # === 7. Save the feature extractor only (without output layer) ===
-feature_extractor.save("/home/nvidia/git/tsfl/feature_extractor_only.h5")
+feature_extractor.save("/home/nvidia/git/tsfl/premd.h5")
 
 print("✅ Feature extractor model saved to /home/nvidia/git/tsfl/feature_extractor_only.h5")
