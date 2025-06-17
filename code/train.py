@@ -86,45 +86,51 @@ Y_validation = to_categorical(Y_validation,len(class_list))
 # model.summary()
 
 # MiniVGGNet
-# model = tf.keras.models.Sequential([
-#     tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,1)),
-#     tf.keras.layers.BatchNormalization(),
-#     tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
-#     tf.keras.layers.BatchNormalization(),
-#     tf.keras.layers.MaxPool2D(2,2),
-#     tf.keras.layers.Dropout(0.5),
+ model = tf.keras.models.Sequential([
+     tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,1)),
+     tf.keras.layers.BatchNormalization(),
+     tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
+     tf.keras.layers.BatchNormalization(),
+     tf.keras.layers.MaxPool2D(2,2),
+     tf.keras.layers.Dropout(0.5),
     
-#     tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-#     tf.keras.layers.BatchNormalization(),
-#     tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-#     tf.keras.layers.BatchNormalization(),
-#     tf.keras.layers.MaxPool2D(2,2),
-#     tf.keras.layers.Dropout(0.5),
+     tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
+     tf.keras.layers.BatchNormalization(),
+     tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
+     tf.keras.layers.BatchNormalization(),
+     tf.keras.layers.MaxPool2D(2,2),
+     tf.keras.layers.Dropout(0.5),
     
-#     tf.keras.layers.Flatten(),
-#     tf.keras.layers.Dense(512, activation='relu'),
-#     tf.keras.layers.BatchNormalization(),
-#     tf.keras.layers.Dropout(0.5),
-#     tf.keras.layers.Dense(len(class_list), activation='softmax')
-#     ])
+     tf.keras.layers.Flatten(),
+     tf.keras.layers.Dense(512, activation='relu'),
+     tf.keras.layers.BatchNormalization(),
+     tf.keras.layers.Dropout(0.5)
+     ])
 # model.compile(Adam(learning_rate=0.001),loss='categorical_crossentropy',metrics=['accuracy'])
 # model.summary()
 
 # OtherNet
-model = tf.keras.models.Sequential([
-    tf.keras.layers.Conv2D(60, (5,5), activation='relu', input_shape=(32,32,1)),
-    tf.keras.layers.Conv2D(60, (5,5), activation='relu'),
-    tf.keras.layers.MaxPool2D(2,2),
-    
-    tf.keras.layers.Conv2D(30, (3,3), activation='relu'),
-    tf.keras.layers.Conv2D(30, (3,3), activation='relu'),
-    tf.keras.layers.MaxPool2D(2,2),
-    
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(500, activation='relu'),
-    tf.keras.layers.Dropout(0.5),
-    tf.keras.layers.Dense(len(class_list), activation='softmax')
-    ])
+# model = tf.keras.models.Sequential([
+#    tf.keras.layers.Conv2D(60, (5,5), activation='relu', input_shape=(32,32,1)),
+#    tf.keras.layers.Conv2D(60, (5,5), activation='relu'),
+#    tf.keras.layers.MaxPool2D(2,2),
+#    
+#    tf.keras.layers.Conv2D(30, (3,3), activation='relu'),
+#    tf.keras.layers.Conv2D(30, (3,3), activation='relu'),
+#    tf.keras.layers.MaxPool2D(2,2),
+#    
+#    tf.keras.layers.Flatten(),
+#    tf.keras.layers.Dense(500, activation='relu'),
+#    tf.keras.layers.Dropout(0.5),
+#    tf.keras.layers.Dense(len(class_list), activation='softmax')
+#    ])
+
+base_model.load_weights("D:/Project Sets/OtherNet_e114514.h5", by_name=True, skip_mismatch=True)
+
+output = tf.keras.layers.Dense(len(class_list), activation='softmax')(base_model.output)
+model = tf.keras.models.Model(inputs=base_model.input, outputs=output)
+
+
 model.compile(Adam(learning_rate=0.001),loss='categorical_crossentropy',metrics=['accuracy'])
 model.summary()
 
