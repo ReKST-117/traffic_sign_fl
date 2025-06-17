@@ -18,7 +18,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.utils.np_utils import to_categorical
 from sklearn.model_selection import train_test_split
 
-data_path = "/home/nvidia/ENGG2112/images_own_test"
+data_path = "/home/nvidia/spd/js11"
 
 tf.config.set_visible_devices([], 'GPU')
 
@@ -125,7 +125,7 @@ Y_validation = to_categorical(Y_validation,len(class_list))
 #    tf.keras.layers.Dense(len(class_list), activation='softmax')
 #    ])
 
-base_model.load_weights("D:/Project Sets/OtherNet_e114514.h5", by_name=True, skip_mismatch=True)
+base_model.load_weights("/home/nvidia/git/tsfl/pre_vgg.h5", by_name=True, skip_mismatch=True)
 
 output = tf.keras.layers.Dense(len(class_list), activation='softmax')(base_model.output)
 model = tf.keras.models.Model(inputs=base_model.input, outputs=output)
@@ -154,9 +154,9 @@ model_pred = model.fit(TrainG,
     batch_size=32
     )
 
-model.save('/home/nvidia/venv/tf/js_model.h5')
+model.save('/home/nvidia/git/tsfl/model.h5')
 
-if os.path.exists('/home/nvidia/venv/tf/js_model.h5'):
+if os.path.exists('/home/nvidia/git/tsfl/model.h5'):
     print("Model successfully saved.")
 else:
     print("Model save failed.")
