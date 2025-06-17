@@ -86,7 +86,7 @@ Y_validation = to_categorical(Y_validation,len(class_list))
 # model.summary()
 
 # MiniVGGNet
- model = tf.keras.models.Sequential([
+model = tf.keras.models.Sequential([
      tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,1)),
      tf.keras.layers.BatchNormalization(),
      tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
@@ -125,10 +125,10 @@ Y_validation = to_categorical(Y_validation,len(class_list))
 #    tf.keras.layers.Dense(len(class_list), activation='softmax')
 #    ])
 
-base_model.load_weights("/home/nvidia/git/tsfl/pre_vgg.h5", by_name=True, skip_mismatch=True)
+model.load_weights("/home/nvidia/git/tsfl/pre_vgg.h5", by_name=True, skip_mismatch=True)
 
-output = tf.keras.layers.Dense(len(class_list), activation='softmax')(base_model.output)
-model = tf.keras.models.Model(inputs=base_model.input, outputs=output)
+output = tf.keras.layers.Dense(len(class_list), activation='softmax')(model.output)
+model = tf.keras.models.Model(inputs=model.input, outputs=output)
 
 
 model.compile(Adam(learning_rate=0.001),loss='categorical_crossentropy',metrics=['accuracy'])
