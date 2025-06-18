@@ -53,7 +53,11 @@ Repeating the Cycle
 This process repeats automatically across multiple rounds, synchronizing model weights after each upload and progressing toward convergence.
 ![Step 9](figs/ins3.9.png)
 
+Once all three rounds are completed, you will find the global model files for each round under /tsfl/log. This indicates that the entire training process has finished.
+
 ## Prediction Results
+
+In the prediction results section, this script loads models from each round, selects one random image per class, and visualizes predictions. Correct predictions are marked in green, incorrect in red, and classes trained in the current round are shown with a gray background. This highlights model accuracy and coverage.
 
 The following figures show model predictions after each federated training round. Green text indicates correct predictions. Red text indicates wrong predictions. Gray-shaded samples belong to the class trained in the current round.
 
