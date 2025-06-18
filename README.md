@@ -2,35 +2,35 @@
 
 This README provides a visual walkthrough of the federated learning training and aggregation loop between a cloud server and Jetson client devices.
 
-## Step 1: Start the Cloud Script
+## Step 2: Start the Cloud Script
 On the cloud (host PC), run the following command:
 ```bash
 python cloud_ori.py
 ```
 ![Step 1](figs/ins2.1.png)
 
-## Step 2: Start the Client Training Script
+# Start the Client Training Script
 On each Jetson client, execute:
 ```bash
 python train_ori.py
 ```
-![Step 2](ins3.2.png)
+![Step 2](figs/ins3.2.png)
 
-## Step 3: Cloud Waits for Upload
+# Cloud Waits for Upload
 The cloud waits for client uploads to `receive/` folder:
-![Step 3](ins3.3.png)
+![Step 3](figs/ins3.3.png)
 
 ## Step 4: Jetson Begins Training
 Training starts based on the assigned dataset (e.g. js11):
-![Step 4](ins3.4.png)
+![Step 4](figs/ins3.4.png)
 
 ## Step 5: Training Progress
 Jetson shows training progress with accuracy and loss values:
-![Step 5](ins3.5.png)
+![Step 5](figs/ins3.5.png)
 
 ## Step 6: Upload to Cloud
 After training, Jetson uploads `.h5` model and `.txt` log:
-![Step 6](ins3.6.png)
+![Step 6](figs/ins3.6.png)
 
 ## Step 7: Cloud Issues Next Instruction
 Cloud sends new instruction to begin round 2 (e.g., js12, js22):
