@@ -7,7 +7,7 @@ On the cloud (host PC), run the following command:
 ```bash
 python cloud_ori.py
 ```
-![Step 1](ins2.1.png)
+![Step 1](figs/ins2.1.png)
 
 ## Step 2: Start the Client Training Script
 On each Jetson client, execute:
