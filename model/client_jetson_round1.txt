@@ -1,1 +1,0 @@
-Client jetson finished round 1, accuracy: 0.7370
