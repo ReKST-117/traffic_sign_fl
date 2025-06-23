@@ -41,11 +41,11 @@ When all expected uploads for a given round are present, the cloud automatically
 
 The Functional Block Diagram illustrates the logical flow of the federated learning process. The cloud node coordinates the process by distributing training instructions to multiple Jetson clients. Each client performs local training and sends model updates along with training logs back to the cloud. The cloud then performs aggregation (e.g., FedAvg) to generate a new global model. [3] This process iterates over several rounds to improve performance without centralized data collection.
 
-![Functional Block Diagram](figs/fbd.png)
+![Functional Block Diagram](figs/FBD.png)
 
 The System Block Diagram presents the physical setup of the federated learning architecture. A cloud server communicates securely with multiple Jetson edge devices via SSH/SCP over a network switch. Each Jetson board is connected to a local monitor and runs independently during training. This diagram emphasizes hardware layout and communication pathways in the deployment environment.
 
-![System Block Diagram](figs/sbd.png)
+![System Block Diagram](figs/SBD.png)
 
 ### Workflow
 
